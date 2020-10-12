@@ -1,0 +1,48 @@
+.navigationbar-mod {
+  color: var(--textBlack);
+  max-width: 100%;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+  background-color: var(--mainWhite);
+}
+.navigation-logo {
+  width: 3rem;
+}
+
+.navigation-logo a {
+  text-decoration: none;
+  color: var(--linkColor);
+}
+
+.searchbar-mod {
+  width: 100%;
+  position: relative;
+  left: 2.5%;
+}
+
+.navigation-center {
+  width: 25rem;
+  position: fixed;
+  left: 50%;
+}
+
+.navigation-link-item {
+  width: 5rem;
+  margin-right: 1rem;
+  border: 0;
+}
+
+.navigation-link-item:hover {
+  background-color: var(--elementHover);
+}
+
+.navigation-link-item.active {
+  border-bottom: 4px solid black;
+}
+
+.navigation-right {
+  position: relative;
+  right: 0%;
+  margin-right: 10px;
+  align-items: center;
+  justify-content: center;
+}
