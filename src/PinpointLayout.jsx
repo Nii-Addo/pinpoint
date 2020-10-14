@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import NavigationBar from "./components/layouts/NavigationBar";
 import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import "./css/Pinpoint.css";
 
 const PinpointLayout = ({ children }) => {

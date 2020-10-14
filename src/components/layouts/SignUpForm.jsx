@@ -8,7 +8,7 @@ import { PublicFetch } from "../../utilities/Fetch";
 import styled from "styled-components";
 
 const LoginTextField = ({ ...props }) => {
-  const [field, meta] = useField(props);
+  const [field] = useField(props);
   return (
     <div>
       <input className="text-input" {...field} {...props} />
@@ -93,21 +93,27 @@ const SignUpForm = (props) => {
               passwordConfirmation: values.passwordConfirmation,
             };
 
-            const { data } = await PublicFetch.post("/register", userDto);
+            const { data } = await PublicFetch.post(
+              "/accounts/register",
+              userDto
+            );
             authContext.setAuthState(data);
             setSignupSuccess(data.message);
-            setSignupError("");
+            setSignupError(null);
             setRedirectOnSignup(true);
           } catch (error) {
             setSignupLoading(false);
-            const data = error.response;
+            const { data } = error.response;
             setSignupError(data);
-            setSignupSuccess("");
+            setSignupSuccess(null);
           }
         }}
       >
         <div>
-          {redirectOnSignup && <Redirect to="/login" />}
+          {redirectOnSignup && <Redirect to="/account/profile" />}
+          {signupError ? (
+            <div className="error-alert">{signupError}</div>
+          ) : null}
           <Form>
             <div>
               <LoginInput
@@ -137,7 +143,7 @@ const SignUpForm = (props) => {
               />
             </div>
             <div>
-              <SubmitButton type="submit">Submit</SubmitButton>
+              <SubmitButton type="submit">Sign up</SubmitButton>
             </div>
           </Form>
         </div>

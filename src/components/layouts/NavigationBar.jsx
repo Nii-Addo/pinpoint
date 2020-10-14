@@ -19,7 +19,11 @@ const NavigationBar = (props) => {
       fixed="top"
       className="navigationbar-mod"
     >
-      <Navbar.Brand as={NavLink} to="/" className="navigation-logo centered">
+      <Navbar.Brand
+        as={NavLink}
+        to="/feed"
+        className="navigation-logo centered"
+      >
         Pin.
       </Navbar.Brand>
 
@@ -32,7 +36,7 @@ const NavigationBar = (props) => {
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="navigation-center">
-          <Nav.Link as={NavLink} to="/" className="navigation-link-item">
+          <Nav.Link as={NavLink} to="/feed" className="navigation-link-item">
             Home
           </Nav.Link>
           <Nav.Link as={NavLink} to="/hacks" className="navigation-link-item">

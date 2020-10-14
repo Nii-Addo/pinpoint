@@ -10,7 +10,7 @@ import styled from "styled-components";
 import "../../css/Login.css";
 
 const LoginTextField = ({ ...props }) => {
-  const [field, meta] = useField(props);
+  const [field] = useField(props);
   return (
     <div>
       <input className="text-input" {...field} {...props} />
@@ -85,21 +85,22 @@ const LoginForm = (props) => {
             };
 
             setLoginLoading(true);
-            const { data } = await PublicFetch.post("/login", userDto);
+            const { data } = await PublicFetch.post("/accounts/login", userDto);
             authContext.setAuthState(data);
             setLoginSuccess(data.message);
-            setLoginError("");
+            setLoginError(null);
             setRedirectOnLogin(true);
           } catch (error) {
             setLoginLoading(false);
-            const data = error.response;
+            const { data } = error.response;
             setLoginError(data.message);
-            setLoginSuccess("");
+            setLoginSuccess(null);
           }
         }}
       >
         <div>
           {redirectOnLogin && <Redirect to="/feed" />}
+          {loginError ? <div className="error-alert">{loginError}</div> : null}
           <Form>
             <div>
               <LoginInput name="email" type="email" placeholder="email" />

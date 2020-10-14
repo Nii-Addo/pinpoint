@@ -1,8 +1,9 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useContext } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import { useDropzone } from "react-dropzone";
-import { PostFetch } from "../../utilities/Fetch";
+import { FetchContext } from "../../contexts/FetchContext";
+import { ModalContext } from "../../contexts/ModalContext";
+import { Redirect } from "react-router-dom";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 
@@ -45,53 +46,87 @@ const StyledInput = styled.input`
 `;
 
 const ExtendedModalForm = (props) => {
-  const media = props.media;
-  const setMedia = props.setMedia;
+  const fetchContext = useContext(FetchContext);
+  const modalContext = useContext(ModalContext);
+  const { _id, media } = props.media;
+  const [title, setTitle] = useState("");
+  const [tags, setTags] = useState("");
+  const [description, setDescription] = useState("");
+  const [redirectOnSuccess, setRedirectOnSuccess] = useState(false);
 
-  const onDrop = useCallback((acceptedFiles) => {
-    const media = acceptedFiles[0];
-    let formData = new FormData();
-    formData.append("media", media);
-    const config = {
-      headers: { "content-type": "multipart/form-data" },
+  const handleTitleChange = (e: React.Event) => {
+    setTitle(e.target.value);
+  };
+
+  const handleTagsChange = (e: React.Event) => {
+    setTags(e.target.value);
+  };
+
+  const handleDescriptionChange = (e: React.Event) => {
+    setDescription(e.target.value);
+  };
+
+  const submitExtendedModalForm = (e: React.Event) => {
+    e.preventDefault();
+    const postInfo = {
+      title: title,
+      tags: tags,
+      description: description,
     };
-    PostFetch.post("/", formData, config).then((response) =>
-      setMedia(response.data)
-    );
-  }, []);
+    fetchContext.authAxios
+      .post(`/posts/create/${_id}`, postInfo)
+      .then((response) => {
+        setRedirectOnSuccess(true);
+        modalContext.closeModalHandler();
+      });
+  };
 
   return (
     <Container className="container " tabindex="-1">
+      {redirectOnSuccess && <Redirect to="/channel" />}
       <Row>
         <Col>
-          <div className="form-group mb-4 mt-4">
-            <StyledInput
-              name="tittle"
-              type="text"
-              className="form-control"
-              placeholder="tittle of your post"
-            />
-          </div>
-          <div className="form-group mb-4">
-            <StyledInput
-              name="tags"
-              type="text"
-              className="form-control"
-              placeholder="tags related to your post"
-            />
-          </div>
-          <div className="form-group">
-            <textarea
-              name="description"
-              id="description"
-              cols="50"
-              rows="5"
-              placeholder="more description for your post"
-            ></textarea>
-          </div>
+          <form>
+            <div className="form-group mb-4 mt-4">
+              <StyledInput
+                name="title"
+                value={title}
+                type="text"
+                className="form-control"
+                placeholder="title of your post"
+                onChange={handleTitleChange}
+              />
+            </div>
+            <div className="form-group mb-4">
+              <StyledInput
+                name="tags"
+                value={tags}
+                type="text"
+                className="form-control"
+                placeholder="tags related to your post"
+                onChange={handleTagsChange}
+              />
+            </div>
+            <div className="form-group">
+              <textarea
+                name="description"
+                value={description}
+                id="description"
+                cols="50"
+                rows="5"
+                placeholder="more description for your post"
+                onChange={handleDescriptionChange}
+              ></textarea>
+            </div>
+            <div>
+              <button type="submit" onClick={submitExtendedModalForm}>
+                Post
+              </button>
+            </div>
+          </form>
         </Col>
         <div className="border"></div>
-        <Col>put image here</Col>
+        <Col></Col>
       </Row>
     </Container>
   );

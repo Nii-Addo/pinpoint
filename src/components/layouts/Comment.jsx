@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { CommentWrappper } from "../../components/styledComponents/Divs";
-import { ActionButton } from "../../components/styledComponents/Buttons";
 
 const Comment = (props) => {
   return (

@@ -1,7 +1,6 @@
 import React, { useState, useContext } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 import { ModalContext } from "../../contexts/ModalContext";
 import { useHistory } from "react-router-dom";
 

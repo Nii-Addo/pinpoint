@@ -1,10 +1,9 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useContext, useRef } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import { useDropzone } from "react-dropzone";
-import { PostFetch } from "../../utilities/Fetch";
-import Col from "react-bootstrap/Col";
-import Row from "react-bootstrap/Row";
+import { FetchContext } from "../../contexts/FetchContext";
+import ProgressBar from "react-bootstrap/ProgressBar";
 
 const Container = styled.div`
   .dropzone-text {
@@ -24,6 +23,7 @@ const Container = styled.div`
     color: var(--mainWhite);
     border: none;
     background-color: var(--buttonPrimary);
+    margin-bottom: 2rem;
   }
 `;
 
@@ -57,17 +57,33 @@ const getColor = (props) => {
 };
 
 const ModalForm = (props) => {
-  const onDrop = useCallback((acceptedFiles) => {
-    const media = acceptedFiles[0];
-    let formData = new FormData();
-    formData.append("media", media);
-    const config = {
-      headers: { "content-type": "multipart/form-data" },
-    };
-    PostFetch.post("/", formData, config).then((response) =>
-      console.log(response.data)
-    );
-  }, []);
+  const fetchContext = useContext(FetchContext);
+  const setMedia = props.setMedia;
+
+  const onDrop = useCallback(
+    (acceptedFiles) => {
+      const media = acceptedFiles[0];
+      let formData = new FormData();
+      formData.append("media", media);
+      const config = {
+        headers: { "content-type": "multipart/form-data" },
+      };
+
+      var options = {
+        onUploadProgress: (progressEvent) => {
+          const percentCompleted = Math.round(
+            (progressEvent.loaded * 100) / progressEvent.total
+          );
+          console.log(`${percentCompleted}`);
+        },
+      };
+
+      fetchContext.authAxios
+        .post("/posts/", formData, config, options)
+        .then((response) => setMedia(response.data));
+    },
+    [fetchContext.authAxios]
+  );
 
   const {
     getRootProps,
@@ -83,7 +99,6 @@ const ModalForm = (props) => {
     noKeyboard: true,
     onDrop,
   });
-
   return (
     <Container className="container " tabindex="-1">
       <FileDropZone {...getRootProps({ isDragAccept, isDragReject })}>
@@ -98,3 +113,8 @@ const ModalForm = (props) => {
 };
 
 export default ModalForm;
+/*
+<div>
+  <ProgressBar animated now={60} label={`${60}%`} />
+</div>
+  */

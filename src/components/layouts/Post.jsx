@@ -1,14 +1,14 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
+import React, { useEffect, useState, useRef, useContext } from "react";
 import PropTypes from "prop-types";
 import { Media } from "../../components/styledComponents/Divs";
 import { ActionButton } from "../../components/styledComponents/Buttons";
-import { PostFetch } from "../../utilities/Fetch";
+import { FetchContext } from "../../contexts/FetchContext";
 import CommentList from "../../components/layouts/CommentList";
 import CommentBox from "../../components/layouts/CommentBox";
 
 const Post = (props) => {
-  let { _id, upVotes, downVotes, views, comments, tittle, tags } = props.post;
-
+  let { _id, upVotes, downVotes, views, comments, title, tags } = props.post;
+  const fetchContext = useContext(FetchContext);
   const [showComments, setShowComments] = useState(false);
   const [showCommentInput, setShowCommentInput] = useState(false);
   const [upVoteCount, setUpVoteCount] = useState(upVotes);
@@ -18,7 +18,9 @@ const Post = (props) => {
 
   const upVote = async (id) => {
     try {
-      const postUpVote = await PostFetch.post(`/upvote/${id}`);
+      const postUpVote = await fetchContext.authAxios.post(
+        `/posts/upvote/${id}`
+      );
       if (postUpVote) {
         setUpVoteCount(postUpVote.data.upVotes);
       }
@@ -33,7 +35,9 @@ const Post = (props) => {
 
   const downVote = async (id) => {
     try {
-      const postDownVote = await PostFetch.post(`/downvote/${id}`);
+      const postDownVote = await fetchContext.authAxios.post(
+        `/posts/downvote/${id}`
+      );
       if (postDownVote) {
         setDownVoteCount(postDownVote.data.downVotes);
       }
@@ -45,7 +49,6 @@ const Post = (props) => {
   useEffect(() => {
     downVoteRef.current = downVoteCount;
   }, [downVoteCount]);
-
   return (
     <Media>
       <div className="author-details d-flex flex-wrap align-items-center">
@@ -67,7 +70,7 @@ const Post = (props) => {
         </video>
       </div>
       <div className="media-details">
-        <div className="details-tittle">{tittle}</div>
+        <div className="details-title">{title}</div>
         <div className="details-info d-flex flex-wrap justify-content-between">
           <div className="taglist">{tags}</div>
           <div className="info-right d-flex flex-wrap">

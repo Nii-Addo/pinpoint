@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Formik, Form } from "formik";
-import * as Yup from "yup";
 import styled from "styled-components";
 
 const StyledCommentInputField = styled.div`
@@ -54,31 +52,39 @@ const EditableDiv = styled.div`
   }
 `;
 const CommentBox = ({ props }) => {
-  const [comment, setComment] = useState();
+  const [comment, setComment] = useState("");
 
   const handleComment = (e: React.Event) => {
     setComment(e.target.value);
-    console.log(e.target.value);
   };
-
   const submitComment = (e: React.Event) => {
     e.preventDefault();
     alert(JSON.stringify(comment, null, 2));
   };
+  console.log(comment);
   return (
     <>
-      <form>
-        <EditableDiv>
-          <textarea name="content" id="" cols="50" rows="1"></textarea>
-        </EditableDiv>
-        <button type="submit" onClick={submitComment} hidden="true"></button>
-      </form>
+      <EditableDiv>
+        <span
+          contentEditable="true"
+          name="comment"
+          onChange={handleComment}
+        ></span>
+      </EditableDiv>
     </>
   );
 };
 
 export default CommentBox;
 /*
+
+<form>
+  <EditableDiv>
+    <textarea name="content" id="" cols="50" rows="1"></textarea>
+  </EditableDiv>
+  <button type="submit" onClick={submitComment} hidden={true}></button>
+</form>
+
 <EditableDiv>
   <span
     contenteditable="true"

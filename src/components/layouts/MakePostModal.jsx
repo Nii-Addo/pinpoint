@@ -89,7 +89,11 @@ const MakePostModal = (props) => {
           </span>
         </div>
         <div className="modal-body">
-          {!media ? <ModalForm /> : <ExtendedModalForm />}
+          {!media ? (
+            <ModalForm setMedia={setMedia} />
+          ) : (
+            <ExtendedModalForm media={media} />
+          )}
         </div>
       </ModalWrapper>
     </div>,

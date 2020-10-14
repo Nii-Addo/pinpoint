@@ -1,71 +1,68 @@
-import React,{ createContext, useState} from 'react';
-import {useHistory} from 'react-router-dom';
-import axios from 'axios';
+import React, { createContext, useState } from "react";
+import { useHistory } from "react-router-dom";
 
-const AuthContext=createContext();
-const {Provider}=AuthContext;
+const AuthContext = createContext();
+const { Provider } = AuthContext;
 
-const AuthProvider=({children})=>{
+const AuthProvider = ({ children }) => {
+  const history = useHistory();
+  const [profile, setProfile] = useState({});
 
-  const history=useHistory();
+  const token = localStorage.getItem("token");
+  const expiresAt = localStorage.getItem("expiresAt");
+  const userInfo = localStorage.getItem("userInfo");
 
-  const token=localStorage.getItem('token');
-  const expiresAt=localStorage.getItem('expiresAt');
-  const userInfo=localStorage.getItem('userInfo');
-
-  const [authState,setAuthState]=useState({
+  const [authState, setAuthState] = useState({
     token,
     expiresAt,
-    userInfo:userInfo?JSON.parse(userInfo):{}
+    userInfo: userInfo ? JSON.parse(userInfo) : {},
   });
 
-  const setAuthInfo=({token,userInfo,expiresAt})=>{
-    localStorage.setItem('token',token);
-    localStorage.setItem('expiresAt',expiresAt);
-    localStorage.setItem('userInfo',JSON.stringify(userInfo));
+  const setAuthInfo = ({ token, userInfo, expiresAt }) => {
+    localStorage.setItem("token", token);
+    localStorage.setItem("expiresAt", expiresAt);
+    localStorage.setItem("userInfo", JSON.stringify(userInfo));
     setAuthState({
       token,
       userInfo,
-      expiresAt
-    })
-  }
+      expiresAt,
+    });
+  };
 
-  const isAuthenticated=()=>{
-    if(!authState.token || !authState.expiresAt){
+  const isAuthenticated = () => {
+    if (!authState.token || !authState.expiresAt) {
       return false;
     }
-    return new Date.getTime()/1000 < authState.expiresAt;
+    return new Date.getTime() / 1000 < authState.expiresAt;
   };
 
-const isAdmin=()=>{
-  return authState.userInfo._doc.role=='admin';
-};
-
-  const logout=()=>{
-    localStorage.removeItem('token');
-    localStorage.removeItem('expiresAt');
-    localStorage.removeItem('userInfo');
+  const logout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("expiresAt");
+    localStorage.removeItem("userInfo");
 
     setAuthState({
-      token:null,
-      expiresAt:null,
-      userInfo:{}
+      token: null,
+      expiresAt: null,
+      userInfo: {},
     });
-    history.push('/login');
+    history.push("/login");
   };
 
-  return(
+  return (
     <Provider
-    value={{
-      authState,
-      setAuthState:authInfo=>setAuthInfo(authInfo),
-      isAuthenticated,
-      logout,
-      isAdmin
-    }}>
+      value={{
+        authState,
+        setAuthState: (authInfo) => setAuthInfo(authInfo),
+        profile,
+        setProfile,
+        isAuthenticated,
+        logout,
+      }}
+    >
       {children}
     </Provider>
   );
 };
 
-export  {AuthContext,AuthProvider};
+export { AuthContext, AuthProvider };

@@ -1,15 +1,40 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./App.css";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 import { ModalProvider } from "./contexts/ModalContext";
 import { PostProvider } from "./contexts/PostContext";
-import { AuthProvider } from "./contexts/AuthContext";
+import { AuthProvider, AuthContext } from "./contexts/AuthContext";
+import { FetchProvider } from "./contexts/FetchContext";
 import PinpointLayout from "./PinpointLayout";
 import Home from "./pages/Home";
 import Hacks from "./pages/Hacks";
 import Channel from "./pages/Channel";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
+import Profile from "./pages/Profile";
+import ProfileImage from "./pages/ProfileImage";
+
+const AuthenticatedRoute = ({ children, ...rest }) => {
+  const authContext = useContext(AuthContext);
+
+  return (
+    <Route
+      {...rest}
+      render={() =>
+        authContext.isAuthenticated() ? (
+          <PinpointLayout>{children}</PinpointLayout>
+        ) : (
+          <Redirect to="/" />
+        )
+      }
+    />
+  );
+};
 
 const AppRoutes = () => (
   <Switch>
@@ -18,6 +43,12 @@ const AppRoutes = () => (
     </Route>
     <Route path="/accounts/signup">
       <SignUp />
+    </Route>
+    <Route path="/account/profile">
+      <Profile />
+    </Route>
+    <Route path="/account/profile-image">
+      <ProfileImage />
     </Route>
     <PinpointLayout>
       <Route exact path="/feed">
@@ -36,13 +67,15 @@ function App() {
   return (
     <Router>
       <AuthProvider>
-        <ModalProvider>
-          <PostProvider>
-            <div className="App">
-              <AppRoutes />
-            </div>
-          </PostProvider>
-        </ModalProvider>
+        <FetchProvider>
+          <ModalProvider>
+            <PostProvider>
+              <div className="App">
+                <AppRoutes />
+              </div>
+            </PostProvider>
+          </ModalProvider>
+        </FetchProvider>
       </AuthProvider>
     </Router>
   );
