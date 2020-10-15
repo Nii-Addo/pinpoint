@@ -20,17 +20,19 @@ const Home = (props) => {
   return (
     <div className="home-mod">
       <div className="media-content">
-        {!postContext.posts ? (
-          <>
-            <div className="text-tittle">Top videos for you</div>
-            <PostList />
-          </>
-        ) : (
-          <div className="no-media ">No videos available for you yet</div>
-        )}
+        <div className="text-tittle mb-4">Top videos for you</div>
+        <PostList />
       </div>
     </div>
   );
 };
 
 export default Home;
+/*{postContext.posts.length > 1 ? (
+  <>
+    <div className="text-tittle">Top videos for you</div>
+    <PostList />
+  </>
+) : (
+  <div className="no-media ">No videos available for you yet</div>
+)}*/

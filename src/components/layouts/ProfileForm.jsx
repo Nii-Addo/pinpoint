@@ -134,7 +134,7 @@ const ProfileForm = (props) => {
           } catch (error) {
             setProfileLoading(false);
             const { data } = error.response;
-            setProfileError(data.message);
+            setProfileError(data.message[0]);
             setProfileSuccess(null);
           }
         }}

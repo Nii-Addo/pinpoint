@@ -11,7 +11,7 @@ const PinpointLayout = ({ children }) => {
         <NavigationBar />
       </div>
       <Row>
-        <div className="sidebar-mod">sidebar</div>
+        <div className="sidebar-mod"></div>
         <div className="content-mod">{children}</div>
       </Row>
     </div>

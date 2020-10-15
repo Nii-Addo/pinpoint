@@ -18,6 +18,7 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import Profile from "./pages/Profile";
 import ProfileImage from "./pages/ProfileImage";
+import PageNotFound from "./pages/PageNotFound";
 
 const AuthenticatedRoute = ({ children, ...rest }) => {
   const authContext = useContext(AuthContext);
@@ -61,6 +62,9 @@ const AppRoutes = () => (
         <Channel />
       </Route>
     </PinpointLayout>
+    <Route path="*">
+      <PageNotFound />
+    </Route>
   </Switch>
 );
 function App() {

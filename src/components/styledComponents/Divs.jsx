@@ -72,6 +72,16 @@ export const Media = styled.div`
     line-height: 1.1765;
     white-space: nowrap;
     word-break: break-word;
+    margin-right:30rem;
+  }
+
+  .top-m{
+    width:100%;
+  }
+  .game-level{
+    font-size:0.9rem;
+    position:relative;
+    float: right;
   }
 
   .date-posted {

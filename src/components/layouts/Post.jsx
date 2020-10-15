@@ -58,7 +58,10 @@ const Post = (props) => {
           className="img-fluid author-pic rounded-circle"
         />
         <div>
-          <div className="author-name">Nii</div>
+          <div className="d-flex flex-wrap top-m">
+            <div className="author-name">Alfred</div>
+            <div className="game-level">guru</div>
+          </div>
           <div className="date-posted">04/08/2018</div>
         </div>
       </div>
