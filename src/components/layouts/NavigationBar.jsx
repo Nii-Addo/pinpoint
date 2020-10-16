@@ -24,7 +24,7 @@ const NavigationBar = (props) => {
         to="/feed"
         className="navigation-logo centered"
       >
-        Pin.
+        <img src="/icon.png" alt="" className="img img-fluid" />
       </Navbar.Brand>
 
       <div className="searchbar-mod centered">

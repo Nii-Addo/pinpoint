@@ -20,7 +20,12 @@ const Home = (props) => {
   return (
     <div className="home-mod">
       <div className="media-content">
-        <div className="text-tittle mb-4">Top videos for you</div>
+        <div
+          className="text-tittle mb-4"
+          style={{ fontSize: "1.5rem", fontWeight: "500" }}
+        >
+          Top videos for you
+        </div>
         <PostList />
       </div>
     </div>

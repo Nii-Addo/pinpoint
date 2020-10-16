@@ -5,7 +5,8 @@
   background-color: var(--mainWhite);
 }
 .navigation-logo {
-  width: 3rem;
+  width: 4rem;
+  height: auto;
 }
 
 .navigation-logo a {
