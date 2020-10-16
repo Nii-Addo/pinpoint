@@ -17,7 +17,6 @@ const Post = (props) => {
     tags,
     media,
   } = props.post;
-  console.log(media);
   const { profileImage, level, userName } = props.post.user.userProfile;
   const fetchContext = useContext(FetchContext);
   const [showComments, setShowComments] = useState(false);

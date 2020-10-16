@@ -96,7 +96,6 @@ const ProfileImage = (props) => {
         fetchContext.authAxios
           .post(`/profile/image/${_id}`, formData, config)
           .then((response) => {
-            authContext.setProfile(response.data);
             setProfileError("");
             setRedirectOnProfileSetup(true);
           });

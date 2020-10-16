@@ -112,7 +112,7 @@ const SignUpForm = (props) => {
         <div>
           {redirectOnSignup && <Redirect to="/account/profile" />}
           {signupError ? (
-            <div className="error-alert">{signupError}</div>
+            <div className="error-alert">Problem signing up</div>
           ) : null}
           <Form>
             <div>

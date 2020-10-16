@@ -1,9 +1,32 @@
+.login-page {
+  width: 100%;
+  min-height: 50rem;
+}
+
+.login-logo {
+  position: relative;
+  width: 20rem;
+}
+
+.login-logo-space {
+  position: relative;
+  top: 7rem;
+  left: 10rem;
+  width: 25rem;
+}
+
+.intro-text {
+  font-family: oswald, sans-serif;
+  margin-top: 2rem;
+  font-size: 1.2rem;
+}
+
 .login-mod {
   display: block;
   width: 35%;
   height: 30rem;
   position: relative;
-  left: 50%;
+  left: 20%;
   margin-top: 5%;
   justify-content: center;
   padding: 2rem 2rem 2rem 4rem;

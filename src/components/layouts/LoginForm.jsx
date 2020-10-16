@@ -100,7 +100,9 @@ const LoginForm = (props) => {
       >
         <div>
           {redirectOnLogin && <Redirect to="/feed" />}
-          {loginError ? <div className="error-alert">{loginError}</div> : null}
+          {loginError ? (
+            <div className="error-alert">Wrong email or password</div>
+          ) : null}
           <Form>
             <div>
               <LoginInput name="email" type="email" placeholder="email" />

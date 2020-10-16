@@ -127,8 +127,6 @@ const ProfileForm = (props) => {
               "/profile/",
               userDto
             );
-
-            authContext.setProfile(data);
             setProfileError(null);
             setRedirectOnProfile(true);
           } catch (error) {

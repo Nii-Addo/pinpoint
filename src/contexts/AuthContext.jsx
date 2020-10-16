@@ -6,7 +6,6 @@ const { Provider } = AuthContext;
 
 const AuthProvider = ({ children }) => {
   const history = useHistory();
-  const [profile, setProfile] = useState({});
 
   const token = localStorage.getItem("token");
   const expiresAt = localStorage.getItem("expiresAt");
@@ -33,7 +32,7 @@ const AuthProvider = ({ children }) => {
     if (!authState.token || !authState.expiresAt) {
       return false;
     }
-    return new Date.getTime() / 1000 < authState.expiresAt;
+    return new Date().getTime() / 1000 < authState.expiresAt;
   };
 
   const logout = () => {
@@ -46,7 +45,7 @@ const AuthProvider = ({ children }) => {
       expiresAt: null,
       userInfo: {},
     });
-    history.push("/login");
+    history.push("/");
   };
 
   return (
@@ -54,8 +53,6 @@ const AuthProvider = ({ children }) => {
       value={{
         authState,
         setAuthState: (authInfo) => setAuthInfo(authInfo),
-        profile,
-        setProfile,
         isAuthenticated,
         logout,
       }}

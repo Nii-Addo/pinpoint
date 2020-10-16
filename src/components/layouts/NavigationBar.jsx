@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
+import { AuthContext } from "../../contexts/AuthContext";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import NavDropdown from "react-bootstrap/NavDropdown";
@@ -12,6 +13,7 @@ import MakePostDropDown from "../../components/layouts/MakePostDropDown";
 import "../../css/NavigationBar.css";
 
 const NavigationBar = (props) => {
+  const authContext = useContext(AuthContext);
   return (
     <Navbar
       collapseOnSelect
@@ -48,7 +50,9 @@ const NavigationBar = (props) => {
             <MakePostDropDown />
           </Nav.Link>
           <Nav.Link className="navigation-alts">Messaging</Nav.Link>
-          <Nav.Link className="navigation-alts">Logout</Nav.Link>
+          <Nav.Link className="navigation-alts" onClick={authContext.logout}>
+            Logout
+          </Nav.Link>
         </Nav>
       </Navbar.Collapse>
     </Navbar>

@@ -45,23 +45,21 @@ const AppRoutes = () => (
     <Route path="/accounts/signup">
       <SignUp />
     </Route>
-    <Route path="/account/profile">
+    <AuthenticatedRoute path="/account/profile">
       <Profile />
-    </Route>
-    <Route path="/account/profile-image">
+    </AuthenticatedRoute>
+    <AuthenticatedRoute path="/account/profile-image">
       <ProfileImage />
-    </Route>
-    <PinpointLayout>
-      <Route exact path="/feed">
-        <Home />
-      </Route>
-      <Route path="/hacks">
-        <Hacks />
-      </Route>
-      <Route path="/channel">
-        <Channel />
-      </Route>
-    </PinpointLayout>
+    </AuthenticatedRoute>
+    <AuthenticatedRoute exact path="/feed">
+      <Home />
+    </AuthenticatedRoute>
+    <AuthenticatedRoute path="/hacks">
+      <Hacks />
+    </AuthenticatedRoute>
+    <AuthenticatedRoute path="/channel">
+      <Channel />
+    </AuthenticatedRoute>
     <Route path="*">
       <PageNotFound />
     </Route>

@@ -15,7 +15,7 @@ const Channel = (props) => {
         ></MakePostModal>
       ) : null}
 
-      <div style={{ width: "200px", height: "200px" }}>
+      <div style={{ width: "200px", height: "200px", marginTop: "10rem" }}>
         Page Under Construction...
       </div>
     </div>

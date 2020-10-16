@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
+import { AuthContext } from "../../contexts/AuthContext";
 import { CommentWrappper } from "../../components/styledComponents/Divs";
 
 const Comment = (props) => {
+  const authContext = useContext(AuthContext);
+  const { profileImage } = authContext.authState.userInfo._doc.userProfile;
   return (
     <CommentWrappper className="d-flex flex-wrap">
       <img
-        src="images/pic.jpg"
+        src={`http://localhost:5000/${profileImage}`}
         alt="user"
         className="img-fluid author-pic rounded-circle"
       />
