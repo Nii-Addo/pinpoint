@@ -14,6 +14,10 @@ const Channel = (props) => {
           close={modalContext.closeModalHandler}
         ></MakePostModal>
       ) : null}
+
+      <div style={{ width: "200px", height: "200px" }}>
+        Page Under Construction...
+      </div>
     </div>
   );
 };

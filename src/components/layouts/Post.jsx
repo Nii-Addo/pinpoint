@@ -7,7 +7,18 @@ import CommentList from "../../components/layouts/CommentList";
 import CommentBox from "../../components/layouts/CommentBox";
 
 const Post = (props) => {
-  let { _id, upVotes, downVotes, views, comments, title, tags } = props.post;
+  const {
+    _id,
+    upVotes,
+    downVotes,
+    views,
+    comments,
+    title,
+    tags,
+    media,
+  } = props.post;
+  console.log(media);
+  const { profileImage, level, userName } = props.post.user.userProfile;
   const fetchContext = useContext(FetchContext);
   const [showComments, setShowComments] = useState(false);
   const [showCommentInput, setShowCommentInput] = useState(false);
@@ -53,21 +64,21 @@ const Post = (props) => {
     <Media>
       <div className="author-details d-flex flex-wrap align-items-center">
         <img
-          src="images/pic.jpg"
+          src={`http://localhost:5000/${profileImage}`}
           alt="user"
           className="img-fluid author-pic rounded-circle"
         />
         <div>
           <div className="d-flex flex-wrap top-m">
-            <div className="author-name">Alfred</div>
-            <div className="game-level">guru</div>
+            <div className="author-name">{userName}</div>
+            <div className="game-level">{level}</div>
           </div>
           <div className="date-posted">04/08/2018</div>
         </div>
       </div>
       <div className="media embed-responsive embed-responsive-16by9">
         <video controls>
-          <source src="images/trial.mp4" type="video/mp4" />
+          <source src={`http://localhost:5000/${media}`} type="video/mp4" />
           <source src="images/trial.mp4" type="video/ogg" />
           Your browser does not support HTML video.
         </video>

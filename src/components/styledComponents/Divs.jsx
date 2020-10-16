@@ -78,6 +78,7 @@ export const Media = styled.div`
   .top-m{
     width:100%;
   }
+  
   .game-level{
     font-size:0.9rem;
     position:relative;
