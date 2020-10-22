@@ -6,8 +6,9 @@ import { Redirect } from "react-router-dom";
 import { FetchContext } from "../contexts/FetchContext";
 import { AuthContext } from "../contexts/AuthContext";
 import { Link } from "react-router-dom";
+
 const Container = styled.div`
-  width: 50%;
+  width: 70%;
   height: 27rem;
   padding-top: 1rem;
   margin-top: 3rem;
@@ -82,7 +83,7 @@ const ProfileImage = (props) => {
   const authContext = useContext(AuthContext);
   const [redirectOnProfileSetup, setRedirectOnProfileSetup] = useState(false);
   const [profileError, setProfileError] = useState("");
-  const { _id } = authContext.profile;
+  const { _id } = authContext.authState;
 
   const onDrop = useCallback(
     (acceptedFiles) => {

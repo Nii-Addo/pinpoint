@@ -1,21 +1,22 @@
 import React, { useContext } from "react";
 import PropTypes from "prop-types";
-import { AuthContext } from "../../contexts/AuthContext";
-import "../../css/SideBar.css";
 
 const SideBar = (props) => {
-  const authContext = useContext(AuthContext);
-  const {
-    interests,
-    userName,
-    profileImage,
-  } = authContext.authState.userInfo._doc.userProfile;
-  return (
-    <div>
-      <div className="userName">@{userName}</div>
-      <div className="interests">#{interests}</div>
-    </div>
-  );
+  return <div></div>;
 };
 
 export default SideBar;
+/*<div>
+  {authContext.authState.userInfo._doc.userProfile ? (
+    <div className="userName">
+      @{authContext.authState.userInfo._doc.userProfile.userName}
+    </div>
+  ) : null}
+</div>
+<div className="interests">
+  {authContext.authState.userInfo._doc.userProfile > 0 ? (
+    <div className="userName">
+      #{authContext.authState.userInfo._doc.userProfile.interests}
+    </div>
+  ) : null}
+</div>*/
